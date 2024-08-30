@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.56">
+<meta name="generator" content="quarto-1.5.57">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -195,8 +195,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#r-package-versions" id="toc-r-package-versions" class="nav-link active" data-scroll-target="#r-package-versions">R package versions</a></li>
-  <li><a href="#data-used" id="toc-data-used" class="nav-link" data-scroll-target="#data-used">Data used</a></li>
+  <li><a href="#data-used" id="toc-data-used" class="nav-link active" data-scroll-target="#data-used">Data used</a></li>
   <li><a href="#example-code-using-rstatix" id="toc-example-code-using-rstatix" class="nav-link" data-scroll-target="#example-code-using-rstatix">Example Code using {rstatix}</a></li>
   <li><a href="#example-code-using-proc-freq" id="toc-example-code-using-proc-freq" class="nav-link" data-scroll-target="#example-code-using-proc-freq">Example Code using {PROC FREQ}</a></li>
   <li><a href="#comparison" id="toc-comparison" class="nav-link" data-scroll-target="#comparison">Comparison</a></li>
@@ -215,15 +214,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <hr>
 <p>title: “SAS vs R Non-parametric Analysis - Friedman test”</p>
 <hr>
-<section id="r-package-versions" class="level2">
-<h2 class="anchored" data-anchor-id="r-package-versions">R package versions</h2>
-<p>R 4.3.1<br>
-rstatix 0.7.2</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rstatix) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
 <section id="data-used" class="level2">
 <h2 class="anchored" data-anchor-id="data-used">Data used</h2>
 <p>Friedman’s test is used when you have one within-subjects independent variable with two or more levels and a dependent variable that is not interval and normally distributed (but at least ordinal). To build such unreplicated blocked data, we’ll create a data frame called &nbsp;<code>df_bp</code>&nbsp;from random number. In &nbsp;<code>df_bp</code>&nbsp;: dependent variable <code>bp</code> is randomly generated; Block: <code>subjid</code> ; Group: <code>time_point</code>.</p>
@@ -337,6 +331,48 @@ run;
 <h1>References</h1>
 <p>R <code>friedman_test()</code> documentation: <a href="https://search.r-project.org/CRAN/refmans/rstatix/html/friedman_test.html" class="uri">https://search.r-project.org/CRAN/refmans/rstatix/html/friedman_test.html</a></p>
 <p>SAS <code>PROC FREQ</code> documentation: <a href="https://support.sas.com/documentation/cdl/en/statug/63033/HTML/default/viewer.htm#statug_freq_sect033.htm" class="uri">https://support.sas.com/documentation/cdl/en/statug/63033/HTML/default/viewer.htm#statug_freq_sect033.htm</a></p>
+<div class="callout callout-style-default callout-note callout-titled" title="Session Info">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Session Info
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>─ Session info ───────────────────────────────────────────────────────────────
+ setting  value
+ version  R version 4.4.0 (2024-04-24)
+ os       Ubuntu 22.04.4 LTS
+ system   x86_64, linux-gnu
+ ui       X11
+ language (EN)
+ collate  C.UTF-8
+ ctype    C.UTF-8
+ tz       UTC
+ date     2024-08-30
+ pandoc   3.2 @ /opt/quarto/bin/tools/ (via rmarkdown)
+
+─ Packages ───────────────────────────────────────────────────────────────────
+ ! package * version date (UTC) lib source
+ P rstatix * 0.7.2   2023-02-01 [?] RSPM (R 4.4.0)
+
+ [1] /home/runner/work/CAMIS/CAMIS/renv/library/R-4.4/x86_64-pc-linux-gnu
+ [2] /opt/R/4.4.0/lib/R/library
+
+ P ── Loaded and on-disk path mismatch.
+
+──────────────────────────────────────────────────────────────────────────────</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
 
 
 </section>
