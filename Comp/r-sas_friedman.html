@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>r-sas_friedman</title>
+<title>R vs SAS Non-parametric Analysis - Friedman test</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -208,15 +208,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">R vs SAS Non-parametric Analysis - Friedman test</h1>
+</div>
 
 
 
-<hr>
-<p>title: “SAS vs R Non-parametric Analysis - Friedman test”</p>
-<hr>
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rstatix) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rstatix) </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggpubr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="data-used" class="level2">
 <h2 class="anchored" data-anchor-id="data-used">Data used</h2>
@@ -250,25 +264,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>Save R-generated data for SAS to use.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(df_bp, <span class="fu">paste0</span>(<span class="fu">getwd</span>(),<span class="st">"/data_bp.csv"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>SAS will import generated dataset from the corresponding location.</p>
-<pre><code>libname data '\\Client\Y$\Gitlab\CAMIS';
-
-proc import datafile="%sysfunc(pathname(data))\data_bp.csv" out=data_bp dbms=csv replace;
-    getnames=yes;
-run;
-</code></pre>
 </section>
 <section id="example-code-using-rstatix" class="level2">
 <h2 class="anchored" data-anchor-id="example-code-using-rstatix">Example Code using {rstatix}</h2>
 <p>In R, <strong>friedman_test</strong> can be used to compare multiple means of rank in <code>bp</code> grouped by <code>time_point</code>, stratified by <code>subjid</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>res.fried <span class="ot">&lt;-</span> df_bp <span class="sc">%&gt;%</span> </span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">friedman_test</span>(bp <span class="sc">~</span> time_point <span class="sc">|</span> subjid)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>res.fried</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>res.fried <span class="ot">&lt;-</span> df_bp <span class="sc">%&gt;%</span> </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">friedman_test</span>(bp <span class="sc">~</span> time_point <span class="sc">|</span> subjid)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>res.fried</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 6
   .y.       n statistic    df     p method       
@@ -280,7 +283,7 @@ run;
 <section id="example-code-using-proc-freq" class="level2">
 <h2 class="anchored" data-anchor-id="example-code-using-proc-freq">Example Code using {PROC FREQ}</h2>
 <p>In SAS, <strong>CMH2</strong> option of PROC FREQ is used to perform Friedman’s test.</p>
-<pre><code>proc freq data=data_bp;
+<pre class="sas"><code>proc freq data=data_bp;
    tables patient*dos*bp / 
           cmh2 scores=rank noprint;
 run;
